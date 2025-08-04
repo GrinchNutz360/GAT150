@@ -13,6 +13,7 @@
 #include "Engine.h"
 #include "Renderer/Text.h"
 #include "Renderer/Font.h"
+#include "Renderer/Texture.h"
 
 #include "Game/Player.h"
 #include "Game/SpaceGame.h"
@@ -57,6 +58,11 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("nuke.wav", "nuke");
     
 
+    //initialize image texture
+    // create texture, using shared_ptr so texture can be shared
+    std::shared_ptr<viper::Texture> texture = std::make_shared<viper::Texture>();
+    texture->Load("stupid.jpg", viper::GetEngine().GetRenderer());
+
     //std::vector<viper::vec2> points;
     //MAIN LOOP
     while (!quit) {
@@ -77,6 +83,10 @@ int main(int argc, char* argv[]) {
 
         viper::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         viper::GetEngine().GetRenderer().Clear();
+
+
+        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
+
 
         //model.Draw(renderer, input.GetMousePosition(), time.GetTime(), 10.0f);
 		//model.Draw(renderer, transform);
