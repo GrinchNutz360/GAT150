@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../Core/StringHelper.h"
+#include "Core/StringHelper.h"
 #include <list>
 
 namespace viper {

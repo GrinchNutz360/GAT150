@@ -1,9 +1,10 @@
 #pragma once
 #include "Renderer.h"
+#include "Resources/Resource.h"
 
 struct TTF_Font;
 namespace viper {
-	class Font {
+	class Font : public Resource{
 	public:
 		Font() = default;
 		~Font();

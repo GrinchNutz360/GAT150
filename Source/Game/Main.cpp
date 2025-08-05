@@ -14,6 +14,7 @@
 #include "Renderer/Text.h"
 #include "Renderer/Font.h"
 #include "Renderer/Texture.h"
+#include "Resources/ResourceManager.h"
 
 #include "Game/Player.h"
 #include "Game/SpaceGame.h"
@@ -30,6 +31,7 @@ int main(int argc, char* argv[]) {
 
 	//initialize engine
 	viper::GetEngine().Initialize();
+	
 
     //initialize game
     std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
@@ -60,8 +62,7 @@ int main(int argc, char* argv[]) {
 
     //initialize image texture
     // create texture, using shared_ptr so texture can be shared
-    std::shared_ptr<viper::Texture> texture = std::make_shared<viper::Texture>();
-    texture->Load("stupid.jpg", viper::GetEngine().GetRenderer());
+	auto texture = viper::ResourceManager::Instance().Get<viper::Texture>("stupid.jpg", viper::GetEngine().GetRenderer());
 
     //std::vector<viper::vec2> points;
     //MAIN LOOP
