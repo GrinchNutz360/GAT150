@@ -28,6 +28,7 @@ namespace viper {
 		int GetHeight() const { return m_height; }
 
 		void DrawTexture(class Texture* texture, float x, float y);
+		void DrawTexture(class Texture* texture, float x, float y, float angle, float scale = 1);
 
 	private:
 		friend class Text;

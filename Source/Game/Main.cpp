@@ -62,9 +62,11 @@ int main(int argc, char* argv[]) {
 
     //initialize image texture
     // create texture, using shared_ptr so texture can be shared
-	auto texture = viper::ResourceManager::Instance().Get<viper::Texture>("stupid.jpg", viper::GetEngine().GetRenderer());
+	auto texture = viper::Resources().Get<viper::Texture>("Textures/blue_01.png", viper::GetEngine().GetRenderer());
 
     //std::vector<viper::vec2> points;
+    
+    float rotate = 0;
     //MAIN LOOP
     while (!quit) {
         while (SDL_PollEvent(&e)) {
@@ -85,14 +87,11 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         viper::GetEngine().GetRenderer().Clear();
 
-
-        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 30, 30);
-
-
         //model.Draw(renderer, input.GetMousePosition(), time.GetTime(), 10.0f);
 		//model.Draw(renderer, transform);
 		game->Draw(viper::GetEngine().GetRenderer());
-
+        rotate += 90 * viper::GetEngine().GetTime().GetDeltaTime();
+        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
 
         viper::vec2 speedz{ -140.0f, 0.0f };
         float length = speedz.Length();

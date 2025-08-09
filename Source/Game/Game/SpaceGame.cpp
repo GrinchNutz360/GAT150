@@ -21,18 +21,18 @@ bool SpaceGame::Initialize()
 
 	m_scene = std::make_unique<viper::Scene>(this);
 
-    m_titleFont = std::make_shared<viper::Font>();
+   /* m_titleFont = std::make_shared<viper::Font>();
 	m_titleFont->Load("ArcadeClassic.ttf", 128);
 
     m_uiFont = std::make_shared<viper::Font>();
-    m_uiFont->Load("ArcadeClassic.ttf", 48);
+    m_uiFont->Load("ArcadeClassic.ttf", 48);*/
 
-    /*m_livesText = std::make_unique < viper::Text>(viper::Resources().Get<viper::Font>("ArcadeClassic.ttf", 48.0f));
-    m_titleText = std::make_unique < viper::Text>(viper::Resources().Get<viper::Font>("ArcadeClassic.ttf", 128.0f));
-    m_scoreText = std::make_unique < viper::Text>(viper::Resources().Get<viper::Font>("ArcadeClassic.ttf", 48.0f));*/
-	m_titleText = std::make_unique < viper::Text>(m_titleFont);
+    m_titleText = std::make_unique < viper::Text>(viper::Resources().GetWithID<viper::Font>("title_Font", "ArcadeClassic.ttf", 128.0f));
+    m_livesText = std::make_unique < viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_Font", "ArcadeClassic.ttf", 48.0f));
+    m_scoreText = std::make_unique < viper::Text>(viper::Resources().GetWithID<viper::Font>("ui_Font", "ArcadeClassic.ttf", 48.0f));
+	/*m_titleText = std::make_unique < viper::Text>(m_titleFont);
     m_scoreText = std::make_unique < viper::Text>(m_uiFont);
-    m_livesText = std::make_unique < viper::Text>(m_uiFont);
+    m_livesText = std::make_unique < viper::Text>(m_uiFont);*/
     
 	
          return false;
@@ -65,9 +65,9 @@ void SpaceGame::Update(float dt)
     {
 		m_scene->RemoveAllActors();
         //create player
-        std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0,0,1 });
-        viper::Transform transform{ viper::vec2 { viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 10 };
-        auto player = std::make_unique<Player>(transform, model);
+        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0,0,1 });
+        viper::Transform transform{ viper::vec2 { viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.0f };
+        auto player = std::make_unique<Player>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
         player->speed = 1500.0f;
         player->rotationRate = 180.0f;
         player->damping = 1.5f;
@@ -148,14 +148,14 @@ void SpaceGame::SpawnEnemy()
     Player* player = m_scene->GetActorByName<Player>("Player");
     if (player) {
         //create enemies
-        std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::enemyPoints, viper::vec3{ 1.0f, 0.0f, 0.0f });
+        //std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::enemyPoints, viper::vec3{ 1.0f, 0.0f, 0.0f });
                
        //spawn at random position away from player
         viper::vec2 position = player->m_transform.position * viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
 
-        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 10};
+        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f};
 
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireTime = 2;
         enemy->fireTimer = 3;

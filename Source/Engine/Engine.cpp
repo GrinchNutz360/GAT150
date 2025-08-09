@@ -7,25 +7,18 @@
 
 namespace viper {
 
-	Engine& GetEngine()
-	{
-		static Engine engine;
-		return engine;
-	}
-
-
 	bool Engine::Initialize() {
-		m_renderer = std::make_unique<viper::Renderer>();
+		m_renderer = std::make_unique<Renderer>();
 		m_renderer->Initialize();
 		m_renderer->CreateWinow("Viper Engine", 1200, 1024);
 
-		m_input= std::make_unique<viper::InputSystem>();
+		m_input= std::make_unique<InputSystem>();
 		m_input->Initialize();
 
-		m_audio= std::make_unique<viper::AudioSystem>();
+		m_audio= std::make_unique<AudioSystem>();
 		m_audio->Initialize();
 
-		m_particleSystem = std::make_unique<viper::ParticleSystem>();
+		m_particleSystem = std::make_unique<ParticleSystem>();
 		m_particleSystem->Initialize(5000);
 
 		return true;
