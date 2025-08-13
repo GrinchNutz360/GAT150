@@ -1,4 +1,5 @@
 #include "Font.h"
+#include "Core/Logger.h"
 
 
 
@@ -19,8 +20,7 @@ viper::Font::~Font() {
 bool viper::Font::Load(const std::string& name, float fontSize) {
 	m_ttfFont = TTF_OpenFont(name.c_str(), fontSize);
 	if (m_ttfFont == nullptr) {
-		std::cerr << SDL_GetError() << std::endl;
-		std::cerr << "Could not load font: " << name << std::endl;
+		Logger::Error("Could not load font: {} - {}", name, SDL_GetError());
 		return false;
 	}
 

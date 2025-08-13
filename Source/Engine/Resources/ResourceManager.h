@@ -2,6 +2,7 @@
 #include "Core/StringHelper.h"
 #include "Resources/Resource.h"
 #include "Core/Singleton.h"
+#include "Core/Logger.h"
 #include <string>
 #include <map>
 #include <iostream>
@@ -43,7 +44,7 @@ namespace viper {
 			auto resource = std::dynamic_pointer_cast<T>(base);
 			//check if cast was successful
 			if (resource == nullptr) {
-				std::cerr << "Resourece type mismatch: " << key << std::endl;
+				Logger::Warning("Resource type mismatch: {}", key);
 				return res_t<T>();
 			}
 			//return the derived resource
@@ -53,7 +54,7 @@ namespace viper {
 		///load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->Load(name, std::forward<Args>(args)...) == false) {
-			std::cerr << "Cold not load resource: " << name << std::endl;
+			Logger::Info("Could not load resource: {}", name);
 			return res_t<T>();
 		}
 		//add resourece to resource manager
