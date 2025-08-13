@@ -67,7 +67,7 @@ void SpaceGame::Update(float dt)
         //create player
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0,0,1 });
         viper::Transform transform{ viper::vec2 { viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.0f };
-        auto player = std::make_unique<Player>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
+        auto player = std::make_unique<Player>(transform, viper::Resources().Get<viper::Texture>("textures/darkgrey_01.png", viper::GetEngine().GetRenderer()));
         player->speed = 1500.0f;
         player->rotationRate = 180.0f;
         player->damping = 1.5f;
@@ -155,7 +155,7 @@ void SpaceGame::SpawnEnemy()
 
         viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f};
 
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, viper::Resources().Get<viper::Texture>("textures/red_03.png", viper::GetEngine().GetRenderer()));
         enemy->damping = 1.5f;
         enemy->fireTime = 2;
         enemy->fireTimer = 3;

@@ -45,7 +45,7 @@ void Enemy::Update(float dt)
 
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 0,1,0 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/enemymissile.png", viper::GetEngine().GetRenderer()));
         rocket->speed = 500.0f;
         rocket->tag = "Enemy";
         rocket->name = "Rocket";

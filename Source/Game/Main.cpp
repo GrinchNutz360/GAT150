@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 
     //initialize image texture
     // create texture, using shared_ptr so texture can be shared
-	auto texture = viper::Resources().Get<viper::Texture>("Textures/blue_01.png", viper::GetEngine().GetRenderer());
+	//auto texture = viper::Resources().Get<viper::Texture>(, viper::GetEngine().GetRenderer());
 
     //std::vector<viper::vec2> points;
     
@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
 		//model.Draw(renderer, transform);
 		game->Draw(viper::GetEngine().GetRenderer());
         rotate += 90 * viper::GetEngine().GetTime().GetDeltaTime();
-        viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
+        //viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
 
         viper::vec2 speedz{ -140.0f, 0.0f };
         float length = speedz.Length();

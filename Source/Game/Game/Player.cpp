@@ -51,7 +51,7 @@ void Player::Update(float dt)
 
 
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/blue_01.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/missile-1.png", viper::GetEngine().GetRenderer()));
         rocket->speed = 1500.0f;
         rocket->tag = "Player";
         rocket->name = "Rocket";
@@ -60,64 +60,67 @@ void Player::Update(float dt)
     }
 
     ////fire machine gun
-    //if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_C)) {
+    if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_C)) {
 
-    //    viper::GetEngine().GetAudio().PlaySound("machineGun");
-    //    std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 157,0,255 });
-    //    viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-    //    auto rocket = std::make_unique<Rocket>(transform, model);
-    //    rocket->speed = 1500.0f;
-    //    rocket->tag = "Player";
-    //    rocket->name = "Rocket";
-    //    scene->AddActor(std::move(rocket));
+        viper::GetEngine().GetAudio().PlaySound("machineGun");
+        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 157,0,255 });
+        viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
+        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/machinegun.png", viper::GetEngine().GetRenderer()));
+        //auto rocket = std::make_unique<Rocket>(transform, model);
+        rocket->speed = 1500.0f;
+        rocket->tag = "Player";
+        rocket->name = "Rocket";
+        scene->AddActor(std::move(rocket));
 
-    //}
+    }
 
     ////fire shotgun
-    //fireTimer -= dt;
-    //if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_V) && fireTimer <= 0) {
-    //    fireTimer = fireTime;
-    //    std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 1,0,0 });
-    //    viper::GetEngine().GetAudio().PlaySound("shotGun");
-    //    //viper::Transform transform{ this->m_transform.position, viper::random::getReal(this->m_transform.rotation + 20.0f, this->m_transform.rotation -20.0f), 2.0f};
-    //    for (int i = 0; i < 10; i++) {
-    //        // Assume you have some base rotation:
-    //        float baseRotation = this->m_transform.rotation;
+    fireTimer -= dt;
+    if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_V) && fireTimer <= 0) {
+        fireTimer = fireTime;
+       // std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 1,0,0 });
+        viper::GetEngine().GetAudio().PlaySound("shotGun");
+        //viper::Transform transform{ this->m_transform.position, viper::random::getReal(this->m_transform.rotation + 20.0f, this->m_transform.rotation -20.0f), 2.0f};
+        for (int i = 0; i < 10; i++) {
+            // Assume you have some base rotation:
+            float baseRotation = this->m_transform.rotation;
 
-    //        // Add random spread, e.g., ±15 degrees
-    //        float spread = viper::random::getReal(-15.0f, 15.0f);
+            // Add random spread, e.g., ±15 degrees
+            float spread = viper::random::getReal(-15.0f, 15.0f);
 
-    //        float newRotation = baseRotation + spread;
+            float newRotation = baseRotation + spread;
 
-    //        viper::Transform transform{
-    //            this->m_transform.position,
-    //            newRotation,
-    //            2.0f
-    //        };
+            viper::Transform transform{
+                this->m_transform.position,
+                newRotation,
+                2.0f
+            };
 
-    //        auto rocket = std::make_unique<Rocket>(transform, model);
-    //        rocket->speed = 1500.0f;
-    //        rocket->tag = "Player";
-    //        rocket->name = "Rocket";
-    //        fireTimer = 3;
-    //        scene->AddActor(std::move(rocket));
+            //auto rocket = std::make_unique<Rocket>(transform, model);
+            auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/shotgun.png", viper::GetEngine().GetRenderer()));
+            rocket->speed = 1500.0f;
+            rocket->tag = "Player";
+            rocket->name = "Rocket";
+            fireTimer = 3;
+            scene->AddActor(std::move(rocket));
 
 
-    //    }
-    //}
+        }
+    }
 
     ////explosive
-    //fireTimer -= dt;
-    //if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_O)&& viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_P)) {
-    //    viper::GetEngine().GetAudio().PlaySound("nuke");
-    //    std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 255, 165, 0 });
-    //    viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2000.0f };
-    //    auto rocket = std::make_unique<Rocket>(transform, model);
-    //    rocket->speed = 1500.0f;
-    //    rocket->tag = "Rocket";
-    //    rocket->name = "Rocket";
-    //    scene->AddActor(std::move(rocket));
-    //}
+    fireTimer -= dt;
+    if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_O)&& viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_P)) {
+        viper::GetEngine().GetAudio().PlaySound("nuke");
+        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 255, 165, 0 });
+        viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 55.0f };
+        //auto rocket = std::make_unique<Rocket>(transform, model);
+        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/op.png", viper::GetEngine().GetRenderer()));
+        rocket->speed = 1500.0f;
+        rocket->tag = "Rocket";
+        rocket->name = "Rocket";
+        scene->AddActor(std::move(rocket));
+    }
 
 
 
