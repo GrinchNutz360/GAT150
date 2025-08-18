@@ -6,8 +6,8 @@ public:
 	float speed = 200;
 public:
 	Rocket() = default;
-	Rocket(const viper::Transform& transform, viper::res_t<viper::Texture> texture) :
-		Actor{ transform , texture }
+	Rocket(const viper::Transform& transform) :
+		Actor{ transform }
 	{
 	}
 

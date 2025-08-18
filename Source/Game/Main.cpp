@@ -1,29 +1,4 @@
-#include "Math/Math.h"
-#include "Math/Vector2.h"
-#include "Math/Transform.h"
-#include "Core/Random.h"
-#include "Core/Time.h"
-#include "Renderer/Renderer.h"
-#include "Renderer/Model.h"
-#include "Input/InputSystems.h"
-#include "Audio/AudioSystem.h"
-#include "Math/Vector3.h"
-#include "Framework/Actor.h"
-#include "Framework/Scene.h"
-#include "Engine.h"
-#include "Renderer/Text.h"
-#include "Renderer/Font.h"
-#include "Renderer/Texture.h"
-#include "Resources/ResourceManager.h"
-
-#include "Game/Player.h"
 #include "Game/SpaceGame.h"
-
-#include <iostream>
-#include <iomanip>
-#include <vector>
-#include <memory>
-
 
 int main(int argc, char* argv[]) {
     //Font stuff
@@ -45,7 +20,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 100; i++) {
         stars.push_back(viper::vec2{ viper::random::getReal() * 1280, viper::random::getReal() * 1024 });
     }
-//    vec2 v(30, 40);
+
 
 
 	//iniialize sounds
@@ -59,12 +34,6 @@ int main(int argc, char* argv[]) {
     viper::GetEngine().GetAudio().AddSound("shotGun.wav", "shotGun");
     viper::GetEngine().GetAudio().AddSound("nuke.wav", "nuke");
     
-
-    //initialize image texture
-    // create texture, using shared_ptr so texture can be shared
-	//auto texture = viper::Resources().Get<viper::Texture>(, viper::GetEngine().GetRenderer());
-
-    //std::vector<viper::vec2> points;
     
     float rotate = 0;
     //MAIN LOOP
@@ -87,11 +56,9 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().GetRenderer().SetColor(color.r, color.g, color.b);
         viper::GetEngine().GetRenderer().Clear();
 
-        //model.Draw(renderer, input.GetMousePosition(), time.GetTime(), 10.0f);
-		//model.Draw(renderer, transform);
 		game->Draw(viper::GetEngine().GetRenderer());
         rotate += 90 * viper::GetEngine().GetTime().GetDeltaTime();
-        //viper::GetEngine().GetRenderer().DrawTexture(texture.get(), 0, 0, rotate, 1);
+       
 
         viper::vec2 speedz{ -140.0f, 0.0f };
         float length = speedz.Length();

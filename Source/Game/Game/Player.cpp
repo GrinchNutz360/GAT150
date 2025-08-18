@@ -1,16 +1,8 @@
 #include "Player.h"
-#include "Engine.h"
-#include "Input/InputSystems.h"
-#include "Renderer/Renderer.h"
-#include "../GameData.h"
-#include "Math/Vector3.h"
-#include "Framework/Scene.h"
+#include "GameData.h"
 #include "Rocket.h"
-#include "Core/Random.h"
-#include"Renderer/ParticleSystem.H"
-#include "Renderer/Model.h"
 #include "SpaceGame.h"
-#include "Audio/AudioSystem.h"
+
 
 void Player::Update(float dt)
 {
@@ -51,11 +43,17 @@ void Player::Update(float dt)
 
 
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/missile-1.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/missile-1.png", viper::GetEngine().GetRenderer()));
         rocket->speed = 1500.0f;
         rocket->tag = "Player";
         rocket->name = "Rocket";
         fireTimer = 1;
+
+        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+        spriteRenderer->textureName = "textures/missile-1.png";
+
+        rocket->AddComponent(std::move(spriteRenderer));
+
         scene->AddActor(std::move(rocket));
     }
 
@@ -65,11 +63,15 @@ void Player::Update(float dt)
         viper::GetEngine().GetAudio().PlaySound("machineGun");
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 157,0,255 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/machinegun.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/machinegun.png", viper::GetEngine().GetRenderer()));
         //auto rocket = std::make_unique<Rocket>(transform, model);
         rocket->speed = 1500.0f;
         rocket->tag = "Player";
         rocket->name = "Rocket";
+
+        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+        spriteRenderer->textureName = "textures/machinegun.png";
+
         scene->AddActor(std::move(rocket));
 
     }
@@ -97,11 +99,14 @@ void Player::Update(float dt)
             };
 
             //auto rocket = std::make_unique<Rocket>(transform, model);
-            auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/shotgun.png", viper::GetEngine().GetRenderer()));
+            auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/shotgun.png", viper::GetEngine().GetRenderer()));
             rocket->speed = 1500.0f;
             rocket->tag = "Player";
             rocket->name = "Rocket";
             fireTimer = 3;
+            auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+            spriteRenderer->textureName = "textures/shotgun.png";
+
             scene->AddActor(std::move(rocket));
 
 
@@ -115,10 +120,12 @@ void Player::Update(float dt)
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 255, 165, 0 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 55.0f };
         //auto rocket = std::make_unique<Rocket>(transform, model);
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/op.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/op.png", viper::GetEngine().GetRenderer()));
         rocket->speed = 1500.0f;
         rocket->tag = "Rocket";
         rocket->name = "Rocket";
+        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+        spriteRenderer->textureName = "textures/op.png";
         scene->AddActor(std::move(rocket));
     }
 

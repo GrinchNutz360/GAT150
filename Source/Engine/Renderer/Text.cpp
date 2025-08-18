@@ -1,6 +1,6 @@
 #include "Text.h"
 #include "Renderer.h"
-#include "Core/Logger.h"
+
 
 viper::Text::~Text() {
 	if (m_texture != nullptr) {

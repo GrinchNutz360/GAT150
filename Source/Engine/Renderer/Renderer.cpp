@@ -1,6 +1,4 @@
 #include "Renderer.h"
-#include "../Math/Vector2.h"
-#include "Core/Logger.h"
 #include "Texture.h"
 
 namespace viper {

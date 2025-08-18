@@ -18,9 +18,6 @@
     <Filter Include="Source\Renderer">
       <UniqueIdentifier>{1c5af833-8e61-43b6-b478-f4366fd4a1d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Input">
-      <UniqueIdentifier>{46b6fd33-c0bd-4222-a80d-848fbf5ee94b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Audio">
       <UniqueIdentifier>{1d8b502f-fa7a-4ed2-a867-c42e042eb9fb}</UniqueIdentifier>
     </Filter>
@@ -30,13 +27,19 @@
     <Filter Include="Source\Resources">
       <UniqueIdentifier>{98b90c85-2cad-44cd-a47d-48ada8b9f042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{9a3fb7b3-3ad4-4581-8d49-771d73b3c63d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{46b6fd33-c0bd-4222-a80d-848fbf5ee94b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Input\InputSystems.cpp">
-      <Filter>Source\Core\Input</Filter>
+      <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Audio\AudioSystems.cpp">
       <Filter>Source\Audio</Filter>
@@ -71,6 +74,15 @@
     <ClCompile Include="Renderer\Texture.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="EnginePCH.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteRenderer.cpp">
+      <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\File.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -92,7 +104,7 @@
       <Filter>Source\Math</Filter>
     </ClInclude>
     <ClInclude Include="Input\InputSystems.h">
-      <Filter>Source\Core\Input</Filter>
+      <Filter>Source\Input</Filter>
     </ClInclude>
     <ClInclude Include="Audio\AudioSystem.h">
       <Filter>Source\Audio</Filter>
@@ -144,6 +156,24 @@
     </ClInclude>
     <ClInclude Include="Core\Logger.h">
       <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMinimal.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePCH.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Object.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Component.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\RendererComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SpriteRenderer.h">
+      <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

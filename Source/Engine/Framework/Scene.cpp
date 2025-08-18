@@ -1,7 +1,5 @@
 #include "Scene.h"
-#include "Actor.h"
-#include "../Core/StringHelper.h"
-#include "../Renderer/Renderer.h"
+#include "Renderer/Renderer.h"
 
 
 namespace viper {
@@ -12,7 +10,9 @@ namespace viper {
 	void Scene::Update(float dt) {
 		// update all actors
 		for (auto& actor : m_actors) {
-			actor->Update(dt);
+			if (actor->active) {
+				actor->Update(dt);
+			}
 
 		}
 		//remove destroyed actors
@@ -46,7 +46,9 @@ namespace viper {
 	/// <param name="renderer">The renderer used to draw the actors.</param>
 	void Scene::Draw(Renderer& renderer) {
 		for (auto& actor : m_actors) {
-			actor->Draw(renderer);
+			if (actor->active) {
+				actor->Draw(renderer);
+			}
 
 		}
 	}

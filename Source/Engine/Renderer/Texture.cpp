@@ -1,9 +1,7 @@
 #include "Texture.h"
 #include "Renderer.h"
-#include "Math/Vector2.h"
-#include "Core/Logger.h"
+#include "EngineMinimal.h"
 
-#include <SDL3_image/SDL_image.h>
 
 namespace viper {
 

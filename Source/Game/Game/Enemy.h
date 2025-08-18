@@ -8,8 +8,8 @@ public:
 	float fireTime = 0;
 public:
 	Enemy() = default;
-	Enemy(const viper::Transform& transform, viper::res_t<viper::Texture> texture) :
-		Actor{ transform , texture }
+	Enemy(const viper::Transform& transform) :
+		Actor{ transform }
 	{
 	}
 

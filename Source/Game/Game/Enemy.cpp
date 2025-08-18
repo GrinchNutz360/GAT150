@@ -1,15 +1,8 @@
 #include "Enemy.h"
-#include "Engine.h"
-#include "Renderer/Renderer.h"
-#include "Framework/Scene.h"
 #include "Player.h"
-#include "Framework/Game.h"
 #include "Rocket.h"
-#include "../GameData.h"
-#include "Math/Vector3.h"
-#include "Renderer/Model.h"
-#include "Renderer/ParticleSystem.H"
-#include "Core/Random.h"
+#include "GameData.h"
+
 
 void Enemy::Update(float dt)
 {
@@ -45,10 +38,17 @@ void Enemy::Update(float dt)
 
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 0,1,0 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
-        auto rocket = std::make_unique<Rocket>(transform, viper::Resources().Get<viper::Texture>("textures/enemymissile.png", viper::GetEngine().GetRenderer()));
+        auto rocket = std::make_unique<Rocket>(transform); // viper::Resources().Get<viper::Texture>("textures/enemymissile.png", viper::GetEngine().GetRenderer()));
         rocket->speed = 500.0f;
         rocket->tag = "Enemy";
         rocket->name = "Rocket";
+
+        //components
+        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
+		spriteRenderer->textureName = "textures/enemymissile.png";
+
+        rocket->AddComponent(std::move(spriteRenderer));
+
         scene->AddActor(std::move(rocket));
     }
 
@@ -64,7 +64,7 @@ void Enemy::OnCollision(Actor* other)
             viper::Particle particle;
             particle.position = m_transform.position;
             particle.velocity = viper::random::onUnitCircle() * viper::random::getReal(10.0f, 200.0f);
-            particle.color = viper::vec3{ 1,1,1 };
+            particle.color = viper::vec3{ 1,0.54901960784f,0.0f };
             particle.lifeSpan = 2;
             viper::GetEngine().GetPS().AddParticle(particle);
         }
