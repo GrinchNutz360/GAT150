@@ -59,7 +59,7 @@ void Player::Update(float dt)
         spriteRenderer->textureName = "textures/missile-1.png";
 
         rocket->AddComponent(std::move(spriteRenderer));
-
+        
         auto rb = std::make_unique<viper::RigidBody>();
         rocket->AddComponent(std::move(rb));
 
@@ -73,7 +73,9 @@ void Player::Update(float dt)
     ////fire machine gun
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_C)) {
 
-        viper::GetEngine().GetAudio().PlaySound("machineGun");
+        //viper::GetEngine().GetAudio().PlaySound("machineGun");
+        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("machineGun.wav", viper::GetEngine().GetAudio()).get());
+
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 157,0,255 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
         auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/machinegun.png", viper::GetEngine().GetRenderer()));
@@ -101,7 +103,9 @@ void Player::Update(float dt)
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_V) && fireTimer <= 0) {
         fireTimer = fireTime;
        // std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 1,0,0 });
-        viper::GetEngine().GetAudio().PlaySound("shotGun");
+       // viper::GetEngine().GetAudio().PlaySound("shotGun");
+        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("shotGun.wav", viper::GetEngine().GetAudio()).get());
+
         //viper::Transform transform{ this->m_transform.position, viper::random::getReal(this->m_transform.rotation + 20.0f, this->m_transform.rotation -20.0f), 2.0f};
         for (int i = 0; i < 10; i++) {
             // Assume you have some base rotation:
@@ -144,7 +148,9 @@ void Player::Update(float dt)
     ////explosive
     fireTimer -= dt;
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_O)&& viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_P)) {
-        viper::GetEngine().GetAudio().PlaySound("nuke");
+        //viper::GetEngine().GetAudio().PlaySound("nuke");
+        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("nuke.wav", viper::GetEngine().GetAudio()).get());
+
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::rocketPoints, viper::vec3{ 255, 165, 0 });
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 55.0f };
         //auto rocket = std::make_unique<Rocket>(transform, model);

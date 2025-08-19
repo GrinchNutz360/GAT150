@@ -29,10 +29,10 @@ int main(int argc, char* argv[]) {
 	viper::GetEngine().GetAudio().AddSound("open-hat.wav", "open-hat");
 	viper::GetEngine().GetAudio().AddSound("clap.wav", "clap");
 	viper::GetEngine().GetAudio().AddSound("cowbell.wav", "cowbell");
-    viper::GetEngine().GetAudio().AddSound("laserShoot.wav", "laser");
-    viper::GetEngine().GetAudio().AddSound("machineGun.wav", "machineGun");
-    viper::GetEngine().GetAudio().AddSound("shotGun.wav", "shotGun");
-    viper::GetEngine().GetAudio().AddSound("nuke.wav", "nuke");
+    //viper::GetEngine().GetAudio().AddSound("laserShoot.wav", "laser");
+    //viper::GetEngine().GetAudio().AddSound("machineGun.wav", "machineGun");
+    //viper::GetEngine().GetAudio().AddSound("shotGun.wav", "shotGun");
+    //viper::GetEngine().GetAudio().AddSound("nuke.wav", "nuke");
     
     
     float rotate = 0;
