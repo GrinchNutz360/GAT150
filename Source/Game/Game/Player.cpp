@@ -29,7 +29,12 @@ void Player::Update(float dt)
 
     viper::vec2 direction{ 1,0 };
     viper::vec2 force = direction.Rotate(viper::math::degToRad(m_transform.rotation)) * thrust * speed;
-    velocity += force * dt;
+    //velocity += force * dt;
+
+    auto* rb = GetComponent <viper::RigidBody>();
+    if (rb) {
+        rb->velocity += force * dt;
+    }
 
     m_transform.position.x = viper::math::wrap(m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     m_transform.position.y = viper::math::wrap(m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
@@ -39,7 +44,8 @@ void Player::Update(float dt)
     fireTimer -= dt;
     if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
         fireTimer = fireTime;
-        viper::GetEngine().GetAudio().PlaySound("laser");
+        //viper::GetEngine().GetAudio().PlaySound("laser");
+        viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("laserShoot.wav", viper::GetEngine().GetAudio()).get());
 
 
         viper::Transform transform{ this->m_transform.position, this->m_transform.rotation, 2.0f };
@@ -53,6 +59,13 @@ void Player::Update(float dt)
         spriteRenderer->textureName = "textures/missile-1.png";
 
         rocket->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<viper::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<viper::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
 
         scene->AddActor(std::move(rocket));
     }
@@ -71,6 +84,13 @@ void Player::Update(float dt)
 
         auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
         spriteRenderer->textureName = "textures/machinegun.png";
+        rocket->AddComponent(std::move(spriteRenderer));
+        auto rb = std::make_unique<viper::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<viper::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
 
         scene->AddActor(std::move(rocket));
 
@@ -106,6 +126,14 @@ void Player::Update(float dt)
             fireTimer = 3;
             auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
             spriteRenderer->textureName = "textures/shotgun.png";
+            rocket->AddComponent(std::move(spriteRenderer));
+            auto rb = std::make_unique<viper::RigidBody>();
+
+            rocket->AddComponent(std::move(rb));
+
+            auto collider = std::make_unique<viper::CircleCollider2D>();
+            collider->radius = 10;
+            rocket->AddComponent(std::move(collider));
 
             scene->AddActor(std::move(rocket));
 
@@ -126,6 +154,15 @@ void Player::Update(float dt)
         rocket->name = "Rocket";
         auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
         spriteRenderer->textureName = "textures/op.png";
+        rocket->AddComponent(std::move(spriteRenderer));
+        auto rb = std::make_unique<viper::RigidBody>();
+
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<viper::CircleCollider2D>();
+        collider->radius = 1000;
+        rocket->AddComponent(std::move(collider));
+
         scene->AddActor(std::move(rocket));
     }
 

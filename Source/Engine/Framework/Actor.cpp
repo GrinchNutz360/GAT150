@@ -6,18 +6,21 @@ namespace viper {
 	{
 		if(destroyed)return;
 
-		if(lifeSpan != 0.0f) {
-			lifeSpan -= dt;
-			destroyed = lifeSpan <= 0;
-		}
 
+
+		if(lifeSpan > 0.0f) {
+			lifeSpan -= dt;
+			if (lifeSpan < -0) {
+				destroyed = true;
+				return;
+			}
+		}
+		//update all components
 		for (auto& component : m_components) {
 			if (component->active)
 			component->Update(dt);
 		}
-
-		m_transform.position += velocity * dt;
-		velocity *= (1.0f / (1.0f + damping * dt));
+			
 	}
 
 	void viper::Actor::Draw(Renderer& renderer)
@@ -37,11 +40,7 @@ namespace viper {
 		//renderer.DrawTexture(m_texture.get(), m_transform.position.x, m_transform.position.y, m_transform.rotation, m_transform.scale);
 		//m_model->Draw(renderer, m_transform);
 	}
-	
-	float Actor::GetRadius()
-	{
-		return 50.0f;//(m_texture) ? (m_texture->GetSize().Length() * 0.5f) * m_transform.scale * 0.9f: 0.0f;
-	}
+
 	void Actor::AddComponent(std::unique_ptr<Component> component)
 	{
 		component->owner = this;

@@ -27,8 +27,11 @@ void Enemy::Update(float dt)
 
 
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(m_transform.rotation)) * speed;
-    velocity += force * dt;
-
+    //velocity += force * dt;
+    auto* rb = GetComponent <viper::RigidBody>();
+        if (rb) {
+			rb->velocity += force * dt;
+        }
     m_transform.position.x = viper::math::wrap(m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     m_transform.position.y = viper::math::wrap(m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
 
@@ -48,6 +51,13 @@ void Enemy::Update(float dt)
 		spriteRenderer->textureName = "textures/enemymissile.png";
 
         rocket->AddComponent(std::move(spriteRenderer));
+
+        auto rb = std::make_unique<viper::RigidBody>();
+        rocket->AddComponent(std::move(rb));
+
+        auto collider = std::make_unique<viper::CircleCollider2D>();
+        collider->radius = 10;
+        rocket->AddComponent(std::move(collider));
 
         scene->AddActor(std::move(rocket));
     }

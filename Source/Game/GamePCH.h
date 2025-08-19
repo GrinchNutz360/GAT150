@@ -6,9 +6,12 @@
 //components
 #include "Components/RendererComponent.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/RigidBody.h"
+#include "Components/CircleCollider2D.h"
 
 //audio
 #include "Audio/AudioSystem.h"
+#include "Audio/AudioClip.h"
 
 //input 
 #include "Input/InputSystems.h"
