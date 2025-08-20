@@ -23,7 +23,7 @@ namespace viper {
 		Vector2 operator - (const Vector2 v) const { return Vector2{ x - v.x, y - v.y }; }
 		Vector2 operator * (const Vector2 v) const { return Vector2{ x * v.x, y * v.y }; }
 		Vector2 operator / (const Vector2 v) const { return Vector2{ x / v.x, y / v.y }; }
-		
+
 		Vector2 operator + (float s) const { return Vector2{ x + s, y + s }; }
 		Vector2 operator - (float s) const { return Vector2{ x - s, y - s }; }
 		Vector2 operator * (float s) const { return Vector2{ x * s, y * s }; }
@@ -38,9 +38,9 @@ namespace viper {
 		Vector2& operator -= (const Vector2& v) { x -= v.x; y -= v.y; return *this; }
 		Vector2& operator *= (const Vector2& v) { x *= v.x; y *= v.y; return *this; }
 		Vector2& operator /= (const Vector2& v) { x /= v.x; y /= v.y; return *this; }
-	
+
 		//square root(x * x + y * y)
-		float LengthSqr() const { return (x*x) + (y*y); }
+		float LengthSqr() const { return (x * x) + (y * y); }
 		float Length() const { return viper::math::sqrtf(LengthSqr()); }
 
 		/// <summary>
@@ -71,29 +71,67 @@ namespace viper {
 			return v;
 		}
 
-		
+
 		static float Dot(const Vector2& a, const Vector2& b) {
 			return a.x * b.x + a.y * b.y;
 		}
-		
-		
+
+
 		static float Cross(const Vector2& a, const Vector2& b) {
 			return a.x * b.y - a.y * b.x;
 		}
-		
-		
+
+
 		static float AngleBetween(const Vector2& a, const Vector2& b) {
 			return math::acosf(Dot(a, b));
 		}
 
 		static float SignedAngleBetween(const Vector2& a, const Vector2& b) {
 			Vector2 v{ Dot(a,b), Cross(a,b) };
-		
+
 			return v.Angle();
 		}
 
 
 	};
+	template<typename T>
+	std::ostream& operator << (std::ostream& stream, const Vector2<T>& v) {
+		stream << "{" << v.x << ", " << v.y << "}";
+		return stream;
+	}
+
+	template<typename T>
+	std::istream& operator >> (std::istream& stream, Vector2<T>& v) {
+		char ch = '\0';
+		//{x,y}
+		// {
+		if (!(stream >> std::ws >> ch) || ch != '{'){
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		//x
+		if (!(stream >> std::ws >> v.x)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		//,
+		if (!(stream >> std::ws >> ch) || ch != ',') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		//y
+		if (!(stream >> std::ws >> v.y)) {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		//}
+		if (!(stream >> std::ws >> ch) || ch != '}') {
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+
+		return stream;
+	}
 
 	using ivec2 = Vector2<int>;
 	using vec2 = Vector2<float>;

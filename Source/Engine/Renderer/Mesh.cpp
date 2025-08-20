@@ -1,11 +1,31 @@
-#include "Model.h"
+#include "Mesh.h"
 #include "Renderer.h"
 namespace viper{
+	bool Mesh::Load(const std::string& filename)
+	{
+		std::string buffer;
+		if (!file::ReadTextFile(filename, buffer)) {
+			Logger::Error("Could not read file : {} ", filename);
+		}
+
+		std::stringstream stream(buffer);
+		//read color
+		stream >> m_color;
+
+		//read points
+		vec2 point;
+		while (stream >> point) {
+			m_points.push_back(point);
+		}
+		return true;
+	}
+
+
 	/// <summary>
 	/// Draws the model by rendering lines between its points using the specified renderer.
 	/// </summary>
 	/// <param name="renderer">The Renderer object used to draw the model.</param>
-	void Model::Draw(Renderer& renderer, const vec2& position, float rotation, float scale) {
+	void Mesh::Draw(Renderer& renderer, const vec2& position, float rotation, float scale) {
 		//check if points are empty, if so return
 		if (m_points.empty()) return;
 
@@ -25,7 +45,7 @@ namespace viper{
 	/// </summary>
 	/// <param name="renderer">The renderer used to draw the model.</param>
 	/// <param name="transform">The transformation to apply, including position, rotation, and scale.</param>
-	void Model::Draw(Renderer& renderer, const Transform& transform)
+	void Mesh::Draw(Renderer& renderer, const Transform& transform)
 	{
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
@@ -33,7 +53,7 @@ namespace viper{
 	/// <summary>
 	/// Calculates and sets the radius of the model as the maximum distance from the origin among its points.
 	/// </summary>
-	void Model::CalculateRadius()
+	void Mesh::CalculateRadius()
 	{
 		m_radius = 0;
 		for (auto& point : m_points) {

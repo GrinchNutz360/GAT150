@@ -12,7 +12,7 @@ namespace viper {
 
 		bool Initialize();
 		void Shutdown();
-		bool CreateWinow(const std::string& name, int width, int height);
+		bool CreateWinow(const std::string& name, int width, int height, bool fullscreen = false);
 
 		void Clear();
 		void Present();
