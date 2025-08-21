@@ -17,6 +17,11 @@ namespace viper{
 		while (stream >> point) {
 			m_points.push_back(point);
 		}
+
+		if (!stream.eof()) {
+			Logger::Error("Could not parse file: {}", filename);
+			return false;
+		}
 		return true;
 	}
 

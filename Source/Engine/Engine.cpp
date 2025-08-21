@@ -10,7 +10,7 @@ namespace viper {
 	bool Engine::Initialize() {
 		m_renderer = std::make_unique<Renderer>();
 		m_renderer->Initialize();
-		m_renderer->CreateWinow("Viper Engine", 1200, 1024, true);
+		m_renderer->CreateWinow("Viper Engine", 1200, 1024, false);
 
 		m_input= std::make_unique<InputSystem>();
 		m_input->Initialize();

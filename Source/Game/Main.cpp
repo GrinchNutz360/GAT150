@@ -3,7 +3,7 @@
 int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");
 
-    std::cout << argc << std::endl;
+    std::cout << viper::file::GetCurrentDirectory() << std::endl;
 
     for (int i = 0; i < argc; i++) {
         //c-string, read characters until '\0'
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     
     std:: cout << v2 << std::endl;
 
-    return 0;
+    //return 0;
 
 
 	//initialize engine
