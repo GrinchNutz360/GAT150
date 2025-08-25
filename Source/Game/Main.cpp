@@ -1,4 +1,5 @@
 #include "Game/SpaceGame.h"
+#define JSON_READ(value, data) viper::json::Read(value, #data, data)
 
 int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");
@@ -48,6 +49,37 @@ int main(int argc, char* argv[]) {
     std:: cout << v2 << std::endl;
 
     //return 0;
+
+    // load the json data from a file
+    std::string buffer;
+    viper::file::ReadTextFile("json.txt", buffer);
+    // show the contents of the json file (debug)
+    std::cout << buffer << std::endl;
+
+    // create json document from the json file contents
+    rapidjson::Document document;
+    viper::json::Load("json.txt", document);
+
+    // read/show the data from the json file
+    std::string name;
+    int age;
+    float speed;
+    bool isAwake;
+    viper::vec2 position;
+    viper::vec3 color;
+
+    // read the json data
+    JSON_READ(document, name);
+    JSON_READ(document, age);
+    JSON_READ(document, speed);
+    JSON_READ(document, isAwake);
+    JSON_READ(document, position);
+    JSON_READ(document, color);
+
+    // show the data
+    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+    std::cout << position.x << " " << position.y << std::endl;
+    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
 
 
 	//initialize engine
