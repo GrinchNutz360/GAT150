@@ -7,7 +7,7 @@
 
 namespace viper::json
 {
-    bool Load(const std::string& filename, rapidjson::Document& document) {
+    bool Load(const std::string& filename, document_t& document) {
         // read the file into a string
         std::string buffer;
         if (!file::ReadTextFile(filename, buffer)) {
@@ -30,7 +30,7 @@ namespace viper::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, int& data) {
+    bool Read(const value_t& value, const std::string& name, int& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsInt()) {
             Logger::Error("Could not read Json value (int): {}.", name);
@@ -42,7 +42,7 @@ namespace viper::json
 
         return true;
     }
-    bool Read(const rapidjson::Value& value, const std::string& name, float& data)
+    bool Read(const value_t& value, const std::string& name, float& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].GetFloat()) {
@@ -55,7 +55,7 @@ namespace viper::json
 
         return true;
     }
-    bool Read(const rapidjson::Value& value, const std::string& name, bool& data) {
+    bool Read(const value_t& value, const std::string& name, bool& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool()) {
             Logger::Error("Could not read Json value (bool): {}.", name);
@@ -67,7 +67,7 @@ namespace viper::json
 
         return true;
     }
-    bool Read(const rapidjson::Value& value, const std::string& name, std::string& data)
+    bool Read(const value_t& value, const std::string& name, std::string& data)
     {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsString()) {
@@ -81,7 +81,7 @@ namespace viper::json
         return true;
     }
 
-    bool Read(const rapidjson::Value& value, const std::string& name, vec2& data) {
+    bool Read(const value_t& value, const std::string& name, vec2& data) {
         // check if the value has the "<name>" and is an array with 2 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2) {
             Logger::Error("Could not read Json value (vec2): {}.", name);
@@ -103,7 +103,7 @@ namespace viper::json
 
         return true;
     }
-    bool Read(const rapidjson::Value& value, const std::string& name, vec3& data)
+    bool Read(const value_t& value, const std::string& name, vec3& data)
     {
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 3) {
             Logger::Error("Could not read Json value (vec3): {}.", name);

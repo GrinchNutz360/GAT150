@@ -1,7 +1,12 @@
+#include "../GamePCH.h"
 #include "Rocket.h"
 #include "Player.h"
+
+FACTORY_REGISTER(Rocket)
+
 void Rocket::Update(float dt)
 {
+    /*
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(m_transform.rotation)) * speed;
     //velocity = force;
     auto* rb = GetComponent <viper::RigidBody>();
@@ -13,12 +18,13 @@ void Rocket::Update(float dt)
     //m_transform.position.y = viper::math::wrap(m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
 
     Actor::Update(dt);
+    */
 }
 
-void Rocket::OnCollision(Actor* other)
+void Rocket::OnCollision(viper::Actor* other)
 {
-    if (tag != other->tag && tag != "Rocket") {
-        destroyed = true;
+    if (owner->tag != other->tag && owner->tag != "Rocket") {
+        owner->destroyed = true;
     }
  
 }

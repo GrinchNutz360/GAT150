@@ -1,12 +1,15 @@
+#include "../GamePCH.h"
 #include "Player.h"
 #include "GameData.h"
 #include "Rocket.h"
 #include "SpaceGame.h"
 
+FACTORY_REGISTER(Player)
 
 void Player::Update(float dt)
 {
-    viper::Particle particle;
+    /*
+        viper::Particle particle;
     particle.position = m_transform.position;
     particle.velocity = viper::vec2{ viper::random::getReal(-200.0f, 200.0f), viper::random::getReal(-200.0f, 200.0f) };
     particle.color = viper::vec3{ 1,1,1 };
@@ -175,13 +178,14 @@ void Player::Update(float dt)
 
 
         Actor::Update(dt);
+        */
 }
 
 
-   void Player::OnCollision(Actor * other)
+   void Player::OnCollision(viper::Actor * other)
     {
-        if (tag != other->tag) {
-            destroyed = true;
-            dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
+        if (owner->tag != other->tag) {
+            owner->destroyed = true;
+            dynamic_cast<SpaceGame*>(owner->scene->GetGame())->OnPlayerDeath();
         }
     }

@@ -1,3 +1,4 @@
+#include "../GamePCH.h"
 #include "SpaceGame.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -9,6 +10,10 @@ bool SpaceGame::Initialize()
     
 
 	m_scene = std::make_unique<viper::Scene>(this);
+
+    viper::json::document_t document;
+    viper::json::Load("scene.json", document);
+	m_scene->Read(document);
 
    /* m_titleFont = std::make_shared<viper::Font>();
 	m_titleFont->Load("ArcadeClassic.ttf", 128);
@@ -53,6 +58,7 @@ void SpaceGame::Update(float dt)
     case SpaceGame::GameState::StartRound:
     {
 		m_scene->RemoveAllActors();
+        /*
         //create player
         //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0,0,1 });
         viper::Transform transform{ viper::vec2 { viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.0f };
@@ -76,6 +82,7 @@ void SpaceGame::Update(float dt)
 		player->AddComponent(std::move(collider));
 
         m_scene->AddActor(std::move(player));
+        */
 		m_gameState = GameState::Game;
     }
         break;
@@ -147,6 +154,7 @@ void SpaceGame::OnPlayerDeath()
 
 void SpaceGame::SpawnEnemy()
 {
+    /*
     Player* player = m_scene->GetActorByName<Player>("Player");
     if (player) {
         //create enemies
@@ -183,6 +191,7 @@ void SpaceGame::SpawnEnemy()
 
         m_scene->AddActor(std::move(enemy));
     }
+    */
     
 
 }

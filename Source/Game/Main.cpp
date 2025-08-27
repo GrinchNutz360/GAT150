@@ -1,86 +1,71 @@
 #include "Game/SpaceGame.h"
-#define JSON_READ(value, data) viper::json::Read(value, #data, data)
+//#define JSON_READ(value, data) viper::json::Read(value, #data, data)
+
+class Animal {
+public:
+    virtual void Speak() = 0;
+
+};
+
+class Cat : public Animal {
+public:
+    void Speak() override { std::cout << "Meow\n"; }
+};
+
+class Dog : public Animal {
+public:
+    void Speak() override { std::cout << "woof\n"; }
+    void Fetch() { std::cout << "got the ball\n"; }
+};
+
+class Bird : public Animal {
+public:
+    void Speak() override { std::cout << "cheep\n"; }
+};
+
+enum class AnimalType {
+    Cat, 
+    Dog,
+    Bird
+};
+
+
+
+Animal* CreateAnimal(AnimalType id) {
+    Animal* animal = nullptr;
+    switch (id) {
+    case AnimalType::Cat :
+        animal = new Cat;
+        break;
+    case AnimalType::Dog :
+        animal = new Dog;
+        break;
+    case AnimalType::Bird :
+        animal = new Bird;
+        break;
+    default:
+        break;
+    }
+    return animal;
+}
+
 
 int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");
 
     std::cout << viper::file::GetCurrentDirectory() << std::endl;
 
-    for (int i = 0; i < argc; i++) {
-        //c-string, read characters until '\0'
-		viper::Logger::Debug("arg {}: {}", i, argv[i]);        
+    auto animal = CreateAnimal(AnimalType::Dog);
+    if (animal) animal->Speak();
+    auto dog = dynamic_cast<Dog*>(animal);
+    if (dog) {
+        dog->Fetch();
     }
 
-    //streams
-    // console streams
-	/*std::cout << "hello, world" << "The story continues" << std::endl;
-    int age{ 0 };
-	std::cout << "Enter your age: ";
-    if (!(std::cin >> age)); {
-        std::cout<< "Invalid input, please enter a number." << std::endl;
-    }
-    std::cout << " you are " << (age * 365) << " days old\n";*/
+    //auto spriteRenderer = viper::Factory::Instance().Create("SpriteRenderer");
+   // spriteRenderer->name = "Steve";
 
-    //file streams
-    std::fstream stream("test.txt");
-    if (!stream) {
-        std::cout << "could not open file.\n";
-    }
-    std::cout << stream.rdbuf();
-    std::string line;
-    while (std::getline(stream, line)) {
-        std::cout << line << std::endl;
-    }
-
-    //basic /built in
-    //bool, int, float, double, 
-
-    //user data type streams
-    //vec2, vec3, texture
-	viper::vec3 v{ 34.5f, 65.6f, 54.0f};
-    std::cout << v << std::endl;
-
-    std::string vstr("{23.4, 76.3}");
-    std::stringstream sstream(vstr);
-
-    viper::vec2 v2;
-    sstream >> v2;
-    
-    std:: cout << v2 << std::endl;
-
-    //return 0;
-
-    // load the json data from a file
-    std::string buffer;
-    viper::file::ReadTextFile("json.txt", buffer);
-    // show the contents of the json file (debug)
-    std::cout << buffer << std::endl;
-
-    // create json document from the json file contents
-    rapidjson::Document document;
-    viper::json::Load("json.txt", document);
-
-    // read/show the data from the json file
-    std::string name;
-    int age;
-    float speed;
-    bool isAwake;
-    viper::vec2 position;
-    viper::vec3 color;
-
-    // read the json data
-    JSON_READ(document, name);
-    JSON_READ(document, age);
-    JSON_READ(document, speed);
-    JSON_READ(document, isAwake);
-    JSON_READ(document, position);
-    JSON_READ(document, color);
-
-    // show the data
-    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-    std::cout << position.x << " " << position.y << std::endl;
-    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-
+   // return 0;
 
 	//initialize engine
 	viper::GetEngine().Initialize();

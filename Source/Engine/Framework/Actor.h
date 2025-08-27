@@ -25,10 +25,12 @@ namespace viper {
 			m_transform{ transform } 
 		{}
 
+		void Read(const json::value_t& value) override;
+
 		virtual void Update(float dt);
 		virtual void Draw(class Renderer& renderer);
 
-		virtual void OnCollision(Actor* other) = 0;
+		virtual void OnCollision(Actor* other) {}
 
 		//components
 		void AddComponent(std::unique_ptr<Component> component);
@@ -46,6 +48,8 @@ namespace viper {
 		//std::shared_ptr<Model> m_model;
 	protected:
 		std::vector<std::unique_ptr<Component>> m_components;
+
+
 	};
 
 	template<typename T>
