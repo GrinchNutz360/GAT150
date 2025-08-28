@@ -56,5 +56,19 @@ namespace viper {
 		JSON_READ(value, lifeSpan);
 
 		if (JSON_HAS(value, m_transform)) m_transform.Read(JSON_GET(value, m_transform));
+
+		//read components
+		if (JSON_HAS(value, components)) {
+			for (auto& componentValue : JSON_GET(value, components).GetArray()) {
+
+				std::string type;
+				JSON_READ(componentValue, type);
+
+				auto component = Factory::Instance().Create<Component>(type);
+				component->Read(componentValue);
+
+				AddComponent(std::move(component));
+			}
+		}
 	}
 }

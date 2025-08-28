@@ -7,8 +7,6 @@
 
 bool SpaceGame::Initialize()
 {
-    
-
 	m_scene = std::make_unique<viper::Scene>(this);
 
     viper::json::document_t document;

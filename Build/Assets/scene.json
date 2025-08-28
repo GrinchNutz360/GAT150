@@ -1,18 +1,38 @@
 {
   "actors": [
     {
-      "name": "sprite",
-      "tag": "Player",
-      "lifespace": 4,
-      "transform": {
-        "position": [ 400, 300 ],
-        "rotation": 30,
+      "name": "player",
+      "tag": "player",
+      "m_transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
         "scale": 2
       },
       "components": [
         {
+          "type": "Player",
+          "speed": 1500.0,
+          "rotationRate": 180,
+          "fireTime":  0.2
+        },
+        {
           "type": "SpriteRenderer",
-          "texture_Name": "textures/darkgrey_01.png"
+          "texture_name": "textures/darkgrey_01.png"
+        },
+        {
+          "type": "RigidBody",
+          "damping": 1.5,
+          "velocity": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
         }
       ]
     },
@@ -20,5 +40,4 @@
 
     }
   ]
-
 }

@@ -1,66 +1,10 @@
 #include "Game/SpaceGame.h"
 //#define JSON_READ(value, data) viper::json::Read(value, #data, data)
 
-class Animal {
-public:
-    virtual void Speak() = 0;
-
-};
-
-class Cat : public Animal {
-public:
-    void Speak() override { std::cout << "Meow\n"; }
-};
-
-class Dog : public Animal {
-public:
-    void Speak() override { std::cout << "woof\n"; }
-    void Fetch() { std::cout << "got the ball\n"; }
-};
-
-class Bird : public Animal {
-public:
-    void Speak() override { std::cout << "cheep\n"; }
-};
-
-enum class AnimalType {
-    Cat, 
-    Dog,
-    Bird
-};
-
-
-
-Animal* CreateAnimal(AnimalType id) {
-    Animal* animal = nullptr;
-    switch (id) {
-    case AnimalType::Cat :
-        animal = new Cat;
-        break;
-    case AnimalType::Dog :
-        animal = new Dog;
-        break;
-    case AnimalType::Bird :
-        animal = new Bird;
-        break;
-    default:
-        break;
-    }
-    return animal;
-}
-
-
 int main(int argc, char* argv[]) {
     viper::file::SetCurrentDirectory("Assets");
 
     std::cout << viper::file::GetCurrentDirectory() << std::endl;
-
-    auto animal = CreateAnimal(AnimalType::Dog);
-    if (animal) animal->Speak();
-    auto dog = dynamic_cast<Dog*>(animal);
-    if (dog) {
-        dog->Fetch();
-    }
 
     //auto spriteRenderer = viper::Factory::Instance().Create("SpriteRenderer");
    // spriteRenderer->name = "Steve";

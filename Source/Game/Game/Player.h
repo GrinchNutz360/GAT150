@@ -15,4 +15,6 @@ public:
 
 	void OnCollision(class viper::Actor* other);
 
+	void Read(const viper::json::value_t& value) override;
+
 };
