@@ -15,6 +15,7 @@ namespace viper {
 
 		bool destroyed{ false };
 		float lifeSpan{ 0.0f };
+		bool persistent{ false };
 
 		class Scene* scene{ nullptr };
 
@@ -24,6 +25,10 @@ namespace viper {
 		Actor(const Transform& transform) :
 			m_transform{ transform } 
 		{}
+
+		Actor(const Actor& other);
+		
+		CLASS_PROTOTYPE(Actor)
 
 		void Read(const json::value_t& value) override;
 

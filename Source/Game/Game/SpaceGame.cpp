@@ -56,31 +56,10 @@ void SpaceGame::Update(float dt)
     case SpaceGame::GameState::StartRound:
     {
 		m_scene->RemoveAllActors();
-        /*
-        //create player
-        //std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(GameData::shipPoints, viper::vec3{ 0,0,1 });
-        viper::Transform transform{ viper::vec2 { viper::GetEngine().GetRenderer().GetWidth() * 0.5f, viper::GetEngine().GetRenderer().GetHeight() * 0.5f}, 0, 2.0f };
-        auto player = std::make_unique<Player>(transform);// viper::Resources().Get<viper::Texture>("textures/darkgrey_01.png", viper::GetEngine().GetRenderer()));
-        player->speed = 1500.0f;
-        player->rotationRate = 180.0f;
-        player->tag = "Player";
-        player->name = "Player";
-
-        auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
-        spriteRenderer->textureName = "textures/darkgrey_01.png";
-
-        player->AddComponent(std::move(spriteRenderer));
-
-		auto rb = std::make_unique<viper::RigidBody>(); 
-		rb->damping = 1.5f;
-		player->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<viper::CircleCollider2D>();
-        collider->radius = 60;
-		player->AddComponent(std::move(collider));
-
+        
+		auto player = viper::Factory::Instance().Create<viper::Actor>("Player");
         m_scene->AddActor(std::move(player));
-        */
+
 		m_gameState = GameState::Game;
     }
         break;
@@ -152,44 +131,14 @@ void SpaceGame::OnPlayerDeath()
 
 void SpaceGame::SpawnEnemy()
 {
-    /*
-    Player* player = m_scene->GetActorByName<Player>("Player");
+   viper::Actor* player = m_scene->GetActorByName<viper::Actor>("Player");
     if (player) {
-        //create enemies
-        //std::shared_ptr<viper::Model> enemyModel = std::make_shared<viper::Model>(GameData::enemyPoints, viper::vec3{ 1.0f, 0.0f, 0.0f });
-               
-       //spawn at random position away from player
-        viper::vec2 position = player->m_transform.position * viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
+        viper::vec2 position = player->m_transform.position + viper::random::onUnitCircle() * viper::random::getReal(200.0f, 500.0f);
+        viper::Transform m_tranform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f };
 
-        viper::Transform transform{ position, viper::random::getReal(0.0f, 360.0f), 2.0f};
-
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);// viper::Resources().Get<viper::Texture>("textures/red_03.png", viper::GetEngine().GetRenderer()));
-        enemy->fireTime = 2;
-        enemy->fireTimer = 3;
-        enemy->speed = (viper::random::getReal() * 400) + 500;
-        enemy->tag = "Enemy";
-
-        //Components
-        //auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
-        //spriteRenderer->textureName = "textures/red_03.png";
-
-        //enemy->AddComponent(std::move(spriteRenderer));
-
-        auto meshRenderer = std::make_unique<viper::MeshRenderer>();
-        meshRenderer->meshName = "Meshes/enemy.txt";
-        enemy->AddComponent(std::move(meshRenderer));
-
-        auto rb = std::make_unique<viper::RigidBody>();
-        rb->damping = 1.5f;
-        enemy->AddComponent(std::move(rb));
-
-        auto collider = std::make_unique<viper::CircleCollider2D>();
-        collider->radius = 60;
-        enemy->AddComponent(std::move(collider));
-
+        auto enemy = viper::Instantiate("Enemy", m_tranform);
         m_scene->AddActor(std::move(enemy));
     }
-    */
     
 
 }

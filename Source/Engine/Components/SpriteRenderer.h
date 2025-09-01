@@ -6,6 +6,7 @@ namespace viper {
 	public:
 		std::string textureName;
 	public: 
+		CLASS_PROTOTYPE(SpriteRenderer)
 
 		// Inherited via RendererComponent
 		void Update(float dt) override;

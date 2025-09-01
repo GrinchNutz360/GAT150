@@ -3,6 +3,20 @@
 #include "Components/RendererComponent.h"
 namespace viper {
 	FACTORY_REGISTER(Actor)
+	
+	Actor::Actor(const Actor& other) :
+		Object{ other },
+		tag {other.tag}, 
+		lifeSpan{ other.lifeSpan },
+		m_transform{ other.m_transform }
+	{
+		//copy components
+		for (auto& component : other.m_components) {
+			auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(component->Clone().release()));
+			AddComponent(std::move(clone));
+		}
+
+	}
 
 	void viper::Actor::Update(float dt)
 	{
@@ -54,6 +68,7 @@ namespace viper {
 
 		JSON_READ(value, tag);
 		JSON_READ(value, lifeSpan);
+		JSON_READ(value, persistent);
 
 		if (JSON_HAS(value, m_transform)) m_transform.Read(JSON_GET(value, m_transform));
 

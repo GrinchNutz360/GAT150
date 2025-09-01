@@ -6,6 +6,7 @@ namespace viper {
 	public:
 		std::string meshName;
 	public:
+		CLASS_PROTOTYPE(MeshRenderer)
 
 		// Inherited via RendererComponent
 		void Update(float dt) override;

@@ -7,6 +7,7 @@ namespace viper {
 		vec2 velocity{ 0,0 };
 		float damping{ 0 };
 	public:
+		CLASS_PROTOTYPE(RigidBody)
 
 		void Update(float dt) override;
 

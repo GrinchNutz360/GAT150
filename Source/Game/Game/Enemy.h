@@ -8,6 +8,7 @@ public:
 	float fireTime = 0;
 public:
 	Enemy() = default;
+	CLASS_PROTOTYPE(Enemy)
 
 	void Update(float dt) override;
 
