@@ -37,6 +37,34 @@
       ]
     },
     {
+      "name": "rocket",
+      "tag": "rocket",
+      "m_transform": {
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "Rocket",
+          "speed": 1500.0
+        },
+        {
+          "type": "SpriteRenderer",
+          "texture_name": "textures/missile-1.png"
+        },
+        {
+          "type": "RigidBody",
+          "velocity": [
+            0,
+            0
+          ]
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 30
+        }
+      ]
+    },
+    {
       "name": "enemy",
       "tag": "enemy",
       "m_transform": {
@@ -50,9 +78,9 @@
       "components": [
         {
           "type": "Enemy",
-          "speed": 1500.0,
+          "speed": 1300.0,
           "rotationRate": 180,
-          "fireTime": 0.2
+          "fireTime": 3.0
         },
         {
           "type": "SpriteRenderer",

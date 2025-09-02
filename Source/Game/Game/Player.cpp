@@ -47,34 +47,18 @@ void Player::Update(float dt)
 
 	//check fire key pressed
 	//spawn rocket at player position and rotation
-	//fireTimer -= dt;
-	//if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
-		//fireTimer = fireTime;
-		//viper::GetEngine().GetAudio().PlaySound("laser");
-		//viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("laserShoot.wav", viper::GetEngine().GetAudio()).get());
+	fireTimer -= dt;
+	if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
+		fireTimer = fireTime;
+		viper::GetEngine().GetAudio().PlaySound("laser");
+		viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("laserShoot.wav", viper::GetEngine().GetAudio()).get());
 
 
-		//    viper::Transform transform{ owner->m_transform.position, owner->m_transform.rotation, 2.0f };
-		//    //auto rocket = std::make_unique<Rocket>(transform);// viper::Resources().Get<viper::Texture>("textures/missile-1.png", viper::GetEngine().GetRenderer()));
-		//    //rocket->speed = 1500.0f;
-		//    //rocket->tag = "Player";
-		//    //rocket->name = "Rocket";
-		//    fireTimer = 1;
-
-		//    auto spriteRenderer = std::make_unique<viper::SpriteRenderer>();
-		//    spriteRenderer->textureName = "textures/missile-1.png";
-
-		//    rocket->AddComponent(std::move(spriteRenderer));
-		//    
-		//    auto rb = std::make_unique<viper::RigidBody>();
-		//    rocket->AddComponent(std::move(rb));
-
-		//    auto collider = std::make_unique<viper::CircleCollider2D>();
-		//    collider->radius = 10;
-		//    rocket->AddComponent(std::move(collider));
-
-		//    scene->AddActor(std::move(rocket));
-		//}
+		viper::Transform transform{ owner->m_transform.position, owner->m_transform.rotation, 2.0f };
+		auto rocket = viper::Instantiate("rocket", transform);
+		rocket->tag = "player";
+		owner->scene->AddActor(std::move(rocket));
+	}
 
 		//////fire machine gun
 		//if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_C)) {

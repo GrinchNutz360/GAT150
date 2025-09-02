@@ -3,7 +3,7 @@
 
 
 
-class Rocket : public viper::Component {
+class Rocket : public viper::Component, public viper::ICollidable {
 public:
 	float speed = 200;
 public:
@@ -13,6 +13,8 @@ public:
 	void Update(float dt) override;
 
 	// Inherited via Actor
-	void OnCollision(class viper::Actor* other) ;
+	void OnCollision(class viper::Actor* other) override;
+
+	void Read(const viper::json::value_t& value) override;
 
 };

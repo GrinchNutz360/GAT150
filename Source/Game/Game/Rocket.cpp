@@ -6,19 +6,17 @@ FACTORY_REGISTER(Rocket)
 
 void Rocket::Update(float dt)
 {
-    /*
-    viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(m_transform.rotation)) * speed;
+    
+    viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->m_transform.rotation)) * speed;
     //velocity = force;
-    auto* rb = GetComponent <viper::RigidBody>();
+    auto* rb = owner->GetComponent <viper::RigidBody>();
     if (rb) {
         rb->velocity = force ;
     }
 
     //m_transform.position.x = viper::math::wrap(m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     //m_transform.position.y = viper::math::wrap(m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
-
-    Actor::Update(dt);
-    */
+    
 }
 
 void Rocket::OnCollision(viper::Actor* other)
@@ -27,4 +25,10 @@ void Rocket::OnCollision(viper::Actor* other)
         owner->destroyed = true;
     }
  
+}
+
+void Rocket::Read(const viper::json::value_t& value)
+{
+    Object::Read(value);
+	JSON_READ(value, speed);
 }

@@ -8,10 +8,8 @@
 bool SpaceGame::Initialize()
 {
 	m_scene = std::make_unique<viper::Scene>(this);
-
-    viper::json::document_t document;
-    viper::json::Load("scene.json", document);
-	m_scene->Read(document);
+	m_scene->Load("scene.json");
+   
 
    /* m_titleFont = std::make_shared<viper::Font>();
 	m_titleFont->Load("ArcadeClassic.ttf", 128);
@@ -57,7 +55,7 @@ void SpaceGame::Update(float dt)
     {
 		m_scene->RemoveAllActors();
         
-		auto player = viper::Factory::Instance().Create<viper::Actor>("Player");
+		auto player = viper::Instantiate("Player");
         m_scene->AddActor(std::move(player));
 
 		m_gameState = GameState::Game;
