@@ -50,7 +50,6 @@ void Player::Update(float dt)
 	fireTimer -= dt;
 	if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_SPACE) && fireTimer <= 0) {
 		fireTimer = fireTime;
-		viper::GetEngine().GetAudio().PlaySound("laser");
 		viper::GetEngine().GetAudio().PlaySound(*viper::Resources().Get<viper::AudioClip>("laserShoot.wav", viper::GetEngine().GetAudio()).get());
 
 

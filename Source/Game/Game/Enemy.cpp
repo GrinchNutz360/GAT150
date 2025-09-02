@@ -50,7 +50,7 @@ void Enemy::Update(float dt)
         viper::Transform transform{ owner->m_transform.position, owner->m_transform.rotation, 2.0f };
         auto rocket = viper::Instantiate("rocket", transform); // viper::Resources().Get<viper::Texture>("textures/enemymissile.png", viper::GetEngine().GetRenderer()));
         //rocket->speed = 500.0f;
-        rocket->tag = "Enemy";
+        rocket->tag = "enemy";
 
         owner->scene->AddActor(std::move(rocket));
     }
