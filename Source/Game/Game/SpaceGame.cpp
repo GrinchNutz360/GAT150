@@ -7,6 +7,10 @@
 
 bool SpaceGame::Initialize()
 {
+
+    OBSERVER_ADD(player_dead);
+	OBSERVER_ADD(add_points);
+
 	m_scene = std::make_unique<viper::Scene>(this);
 	m_scene->Load("scene.json");
    
@@ -26,6 +30,11 @@ bool SpaceGame::Initialize()
     
 	
          return false;
+}
+
+void SpaceGame::Shutdown()
+{
+
 }
 
 void SpaceGame::Update(float dt)
@@ -121,6 +130,17 @@ void SpaceGame::Draw(viper::Renderer& renderer)
 	viper::GetEngine().GetPS().Draw(renderer); 
 }
 
+void SpaceGame::OnNotify(const viper::Event& event)
+{
+    if (viper::equalsIgnoreCase(event.id, "player_dead")) {
+        OnPlayerDeath();
+    }
+    else if (viper::equalsIgnoreCase(event.id, "add_points")) {
+        AddPoints(std::get<int>(event.data));
+	}
+
+}
+
 void SpaceGame::OnPlayerDeath()
 {
 	m_gameState = GameState::PlayerDead;
@@ -141,7 +161,4 @@ void SpaceGame::SpawnEnemy()
 
 }
 
-void SpaceGame::Shutdown()
-{
 
-}

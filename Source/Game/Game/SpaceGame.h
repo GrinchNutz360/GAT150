@@ -4,7 +4,7 @@
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 
-class SpaceGame : public viper::Game {
+class SpaceGame : public viper::Game, public viper::IObserver {
 public: 
 	enum class GameState {
 		Initialize,
@@ -25,6 +25,7 @@ public:
 	void Draw(class viper::Renderer& renderer) override;
 
 	void OnPlayerDeath();
+	void OnNotify(const viper::Event& event) override;
 private:
 	void SpawnEnemy();
 
@@ -39,5 +40,8 @@ private:
 	std::unique_ptr<class viper::Text> m_titleText;
 	std::unique_ptr<class viper::Text> m_scoreText;
 	std::unique_ptr<class viper::Text> m_livesText;
+
+
+	// Inherited via IObserver
 
 };
