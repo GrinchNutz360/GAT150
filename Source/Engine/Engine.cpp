@@ -21,6 +21,9 @@ namespace viper {
 		m_particleSystem = std::make_unique<ParticleSystem>();
 		m_particleSystem->Initialize(5000);
 
+		m_physics = std::make_unique<Physics>();
+		m_physics->Initialize();
+
 		return true;
 	}
 
@@ -33,6 +36,7 @@ namespace viper {
 		m_audio->Shutdown();
 		m_renderer->Shutdown();
 		m_input->Shutdown();
+		m_physics->Shutdown();
 	}
 	
 	void Engine::Update() {
@@ -40,6 +44,7 @@ namespace viper {
 		m_input->Update();
 		m_audio->Update();
 		m_particleSystem->Update(m_time.GetDeltaTime());
+		m_physics->Update(m_time.GetDeltaTime());
 	}
 	void Engine::Draw()
 	{

@@ -25,6 +25,7 @@
 
 //physics
 #include "Physics/Collidable.h"
+#include "Physics/Physics.h"
 
 //Resources
 #include "Resources/ResourceManager.h"
