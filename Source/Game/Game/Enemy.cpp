@@ -27,7 +27,9 @@ void Enemy::Update(float dt)
         
         float angle = viper::vec2::SignedAngleBetween(forward, direction);
         angle = viper::math::sign(angle);
-        owner->m_transform.rotation += viper::math::radToDeg(angle * 5 * dt);
+		m_rigidBody->ApplyTorque(angle * 5);
+
+        //owner->m_transform.rotation += viper::math::radToDeg(angle * 5 * dt);
 
         angle = viper::math::radToDeg(viper::vec2::AngleBetween(forward, direction));
         playerSeen = angle <= 30;
@@ -37,9 +39,8 @@ void Enemy::Update(float dt)
 
     viper::vec2 force = viper::vec2{ 1, 0 }.Rotate(viper::math::degToRad(owner->m_transform.rotation)) * speed;
     //velocity += force * dt;
-        if (m_rigidBody) {
-			m_rigidBody->velocity += force * dt;
-        }
+	m_rigidBody->ApplyForce(force);
+
     owner->m_transform.position.x = viper::math::wrap(owner->m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
     owner->m_transform.position.y = viper::math::wrap(owner->m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
 

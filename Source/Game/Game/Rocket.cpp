@@ -11,7 +11,7 @@ void Rocket::Update(float dt)
     //velocity = force;
     auto* rb = owner->GetComponent <viper::RigidBody>();
     if (rb) {
-        rb->velocity = force ;
+		rb->SetVelocity(force);
     }
 
     //m_transform.position.x = viper::math::wrap(m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());

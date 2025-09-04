@@ -6,6 +6,11 @@
 
 FACTORY_REGISTER(Player)
 
+void Player::Start()
+{
+	m_rigidBody = owner->GetComponent<viper::RigidBody>();
+}
+
 void Player::Update(float dt)
 {
 
@@ -21,7 +26,8 @@ void Player::Update(float dt)
 	if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 	if (viper::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) rotate = +1;
 
-	owner->m_transform.rotation += (rotate * rotationRate) * dt;
+	//owner->m_transform.rotation += (rotate * rotationRate) * dt;
+	m_rigidBody->ApplyTorque(rotate * rotationRate);
 
 	//thrust
 	float thrust = 0;
@@ -33,14 +39,7 @@ void Player::Update(float dt)
 	viper::vec2 direction{ 1,0 };
 	viper::vec2 force = direction.Rotate(viper::math::degToRad(owner->m_transform.rotation)) * thrust * speed;
 	//velocity += force * dt;
-	
-	auto* rb = owner->GetComponent <viper::RigidBody>();
-	if (rb) {
-		rb->velocity += force * dt;
-	}
-	else {
-		viper::Logger::Warning("Player has no rigidbody");
-	}
+		m_rigidBody->ApplyForce(force);
 
 	owner->m_transform.position.x = viper::math::wrap(owner->m_transform.position.x, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());
 	owner->m_transform.position.y = viper::math::wrap(owner->m_transform.position.y, 0.0f, (float)viper::GetEngine().GetRenderer().GetWidth());

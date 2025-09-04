@@ -15,7 +15,7 @@
         {
           "type": "Player",
           "speed": 1500.0,
-          "rotationRate": 180,
+          "rotationRate": 100,
           "fireTime": 0.2
         },
         {
@@ -24,11 +24,8 @@
         },
         {
           "type": "RigidBody",
-          "damping": 1.5,
-          "velocity": [
-            0,
-            0
-          ]
+          "gravityScale": 0,
+          "angularDamping": 2.0
         },
         {
           "type": "CircleCollider2D",
@@ -53,10 +50,8 @@
         },
         {
           "type": "RigidBody",
-          "velocity": [
-            0,
-            0
-          ]
+          "gravityScale": 0,
+          "isSensor": true
         },
         {
           "type": "CircleCollider2D",
@@ -78,7 +73,7 @@
       "components": [
         {
           "type": "Enemy",
-          "speed": 1300.0,
+          "speed": 0,
           "rotationRate": 180,
           "fireTime": 3.0
         },
@@ -88,11 +83,7 @@
         },
         {
           "type": "RigidBody",
-          "damping": 1.5,
-          "velocity": [
-            0,
-            0
-          ]
+          "gravityScale": 0
         },
         {
           "type": "CircleCollider2D",

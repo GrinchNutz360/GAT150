@@ -8,10 +8,12 @@ public:
 	float fireTime = 0.2f;
 	float fireTimer = 0;
 
+	viper::RigidBody* m_rigidBody{ nullptr };
 public:
 	Player() = default;
 	CLASS_PROTOTYPE(Player)
 
+	void Start() override;
 	void Update(float dt) override;
 
 	void OnCollision(class viper::Actor* other) override;

@@ -15,9 +15,14 @@ namespace viper {
 
 		void Update(float dt);
 
-		//vec2 WorldToPixel(const vec2& world) {}
+		static vec2 WorldToPixel(const vec2& world) { return world * ms_pixelsPerUnit; }
+		static vec2 PixelToWorld(const vec2& pixel) { return pixel / ms_pixelsPerUnit; }
 
+		static void SetPixelsPerUnit(float ppu) { ms_pixelsPerUnit = ppu; }
+
+		static float ms_pixelsPerUnit;
 	private:
+		friend class PhysicsBody;
 		b2WorldId m_worldId;
 	};
 }
