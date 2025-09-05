@@ -6,7 +6,9 @@ namespace viper {
 	FACTORY_REGISTER(SpriteRenderer)
 		void SpriteRenderer::Start()
 	{
-		texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+		if (!texture || !textureName.empty()){
+			texture = Resources().Get<Texture>(textureName, GetEngine().GetRenderer());
+		}
 	}
 	void SpriteRenderer::Update(float dt)
 	{
@@ -16,11 +18,21 @@ namespace viper {
 	void SpriteRenderer::Draw(Renderer& renderer)
  	{
 		if (texture) {
-		renderer.DrawTexture(*texture,
-			owner->m_transform.position.x,
-			owner->m_transform.position.y,
-			owner->m_transform.rotation,
-			owner->m_transform.scale);
+			if (textureRect.w > 0 || textureRect.h > 0) {
+				renderer.DrawTexture(*texture,
+					textureRect,
+					owner->m_transform.position.x,
+					owner->m_transform.position.y,
+					owner->m_transform.rotation,
+					owner->m_transform.scale);
+			}
+			else {
+				renderer.DrawTexture(*texture,
+					owner->m_transform.position.x,
+					owner->m_transform.position.y,
+					owner->m_transform.rotation,
+					owner->m_transform.scale);
+			}
 		}
 	}
 	void SpriteRenderer::Read(const json::value_t& value)

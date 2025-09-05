@@ -30,6 +30,7 @@ public:
 private:
 	void SpawnEnemy();
 	void SpawnPlayer();
+	void SpawnBat();
 
 private:
 	GameState m_gameState = GameState::Initialize;
