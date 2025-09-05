@@ -92,7 +92,8 @@ namespace viper {
 		JSON_READ(value, lifeSpan);
 		JSON_READ(value, persistent);
 
-		if (JSON_HAS(value, m_transform)) m_transform.Read(JSON_GET(value, m_transform));
+
+		if (JSON_HAS(value, transform)) m_transform.Read(JSON_GET(value, transform));
 
 		//read components
 		if (JSON_HAS(value, components)) {

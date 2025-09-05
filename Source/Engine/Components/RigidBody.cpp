@@ -24,7 +24,7 @@ namespace viper {
 				size = spriteRenderer->texture->GetSize();
 			}
 		}
-		m_physicsBody = std::make_unique<PhysicsBody>(owner->m_transform, size, bodyDef, GetEngine().GetPhysics());
+		m_physicsBody = std::make_unique<PhysicsBody>(owner->m_transform, size * scale, bodyDef, GetEngine().GetPhysics());
 	}
 	void RigidBody::Update(float dt)
 	{
@@ -52,7 +52,7 @@ namespace viper {
 		Object::Read(value);
 
 		JSON_READ(value, size);
-		//JSON_READ(value, scale);
+		JSON_READ(value, scale);
 
 
 		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);
